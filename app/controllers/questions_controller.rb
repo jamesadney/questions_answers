@@ -41,6 +41,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(params[:question])
+    @question.users << current_user
 
     respond_to do |format|
       if @question.save
@@ -57,6 +58,9 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     @question = Question.find(params[:id])
+    unless @question.users.include? current_user
+      @question.users << current_user
+    end
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
