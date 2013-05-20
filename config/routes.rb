@@ -4,7 +4,7 @@ QuestionAnswer::Application.routes.draw do
   resources :questions
   resources :users, :only => [:index, :show]
 
-	root :to => "questions#index"
+	root :to => redirect("/questions")
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
