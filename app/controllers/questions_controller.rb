@@ -43,6 +43,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(params[:question])
     @question.users << current_user
+    @question.last_edited_by = current_user.email
 
     respond_to do |format|
       if @question.save
@@ -62,6 +63,7 @@ class QuestionsController < ApplicationController
     unless @question.users.include? current_user
       @question.users << current_user
     end
+    @question.last_edited_by = current_user.email
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
